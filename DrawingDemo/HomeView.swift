@@ -50,9 +50,9 @@ struct HomeView: View {
                     ToolbarItem(placement: .topBarLeading) {
                         Button(action: {
                             // saving image
-                            
+                            saveImage()
                         }, label: {
-                            Image(systemName: "sqare.and.arrow.fill")
+                            Image(systemName: "square.and.arrow.down.fill")
                                 .font(.title)
                         })
                     }
@@ -65,8 +65,10 @@ struct HomeView: View {
                             }, label: {
                                 if isDraw {
                                     Image(systemName: "pencil")
+                                        .font(.title)
                                 } else {
                                     Image(systemName: "eraser.fill")
+                                        .font(.title)
                                 }
                             })
                             
@@ -119,6 +121,7 @@ struct HomeView: View {
                             } label: {
                                 Image(systemName: "ellipsis")
                                     .rotationEffect(.degrees(90))
+                                    .font(.title)
                             }
                             
                         }
@@ -130,6 +133,17 @@ struct HomeView: View {
                 }
             
         }
+    }
+}
+
+// MARK: - Methods
+extension HomeView {
+    func saveImage() {
+        // getting image from canvas
+        let image = canvas.drawing.image(from: canvas.drawing.bounds, scale: 1)
+        
+        // saving to album
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
     }
 }
 
